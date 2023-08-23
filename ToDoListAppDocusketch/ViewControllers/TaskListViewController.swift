@@ -58,13 +58,11 @@ class TaskListViewController: UIViewController, AddTaskViewDelegate {
     
     func didTapSaveButton(with task: String) {
         let newTask = Task(title: task, status: .planned)
-        print(newTask)
         viewModel.addTaskAction?(newTask)
         viewModel.addTask(newTask)
         tasksListView.reloadData()
         
     }
-    
     
 }
 

@@ -9,19 +9,21 @@ import UIKit
 
 final class TasksListViewViewModel: NSObject {
     
+    var tasksStorage: TaskStorageProtocol = TaskStorage()
+    
+    
     var addTaskAction: ((TaskProtocol) -> Void)?
     
-    var tasks: [TaskStatus: [TaskProtocol]] = [:]
+    var tasks: [TaskStatus: [TaskProtocol]] = [:] {
+        didSet {
+            var savingArray: [TaskProtocol] = []
+            tasks.forEach {key, value in
+                savingArray += value
+            }
+            tasksStorage.saveTasks(savingArray)
+        }
+    }
     
-//    var tasks: [TaskStatus: [TaskProtocol]] = [:] {
-//        didSet {
-//
-//
-//            let x: [TaskProtocol] = tasks.values.flatMap { $0 }
-//            let y = setTasks(x)
-//            print(y)
-//            }
-//    }
     
     var sectionStatusPosition: [TaskStatus] = [.planned, .completed]
     
@@ -64,6 +66,37 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+               guard let cell = tableView.dequeueReusableCell(
+                   withIdentifier: ToDoTableViewCell.cellIdentifier,
+                   for: indexPath) as? ToDoTableViewCell else {
+                   fatalError("Unsupported cell")
+               }
+               
+               // Обратите внимание на toDoTasks вместо tasks[.completed]
+               guard let task = tasks[.planned]?[indexPath.row] else {
+                   fatalError("Task not found")
+               }
+               
+               cell.configure(with: ToDoTaskTableViewCellViewModel(taskTextLabel: task.title))
+               return cell
+           }
+           if indexPath.section == 1 {
+               guard let cell = tableView.dequeueReusableCell(
+                   withIdentifier: DoneTaskTableViewCell.cellIdentifier,
+                   for: indexPath) as? DoneTaskTableViewCell else {
+                   fatalError("Unsupported cell")
+               }
+               
+               // Используйте tasks[.completed] для раздела "Completed"
+               guard let task = tasks[.completed]?[indexPath.row] else {
+                   fatalError("Task not found")
+               }
+               
+               cell.configure(with: DoneTaskTableViewCellViewModel(taskTextLabel: task.title))
+               return cell
+           }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let sectionStatus = sectionStatusPosition[indexPath.section]
         if let task = tasks[sectionStatus]?[indexPath.row] {

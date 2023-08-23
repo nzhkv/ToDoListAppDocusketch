@@ -38,6 +38,8 @@ class AddTaskView: UIView {
         button.setTitle("Save", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 1
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return button
     }()

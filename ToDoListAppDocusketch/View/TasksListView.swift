@@ -19,8 +19,8 @@ class TasksListView: UIView {
         let table = UITableView()
         table.separatorStyle = .none
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        //        table.register(DoneTaskTableViewCell.self, forCellReuseIdentifier: DoneTaskTableViewCell.cellIdentifier)
-        //        table.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.cellIdentifier)
+        table.register(DoneTaskTableViewCell.self, forCellReuseIdentifier: DoneTaskTableViewCell.cellIdentifier)
+        table.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.cellIdentifier)
         
         return table
     }()
@@ -90,7 +90,7 @@ class TasksListView: UIView {
             
             addButton.widthAnchor.constraint(equalToConstant: 60),
             addButton.heightAnchor.constraint(equalToConstant: 60),
-            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             addButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
