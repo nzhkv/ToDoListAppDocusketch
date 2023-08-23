@@ -9,6 +9,8 @@ import UIKit
 
 final class TasksListViewViewModel: NSObject {
     
+    var addTaskAction: ((TaskProtocol) -> Void)?
+    
     var tasks: [TaskStatus: [TaskProtocol]] = [:]
     
 //    var tasks: [TaskStatus: [TaskProtocol]] = [:] {

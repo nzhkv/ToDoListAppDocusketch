@@ -73,7 +73,7 @@ class TasksListView: UIView {
         addTaskView.translatesAutoresizingMaskIntoConstraints = false
         addSubviews(addTaskView)
         addTaskViewHeightConstraint = addTaskView.heightAnchor.constraint(equalToConstant: 0)
-            addTaskViewHeightConstraint.isActive = true
+        addTaskViewHeightConstraint.isActive = true
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             headerLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -94,5 +94,9 @@ class TasksListView: UIView {
             addButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
+    
+    func setAddTaskViewDelegate(_ delegate: AddTaskViewDelegate) {
+            addTaskView.delegate = delegate
+        }
 }
 

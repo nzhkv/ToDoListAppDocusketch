@@ -7,23 +7,23 @@
 
 import UIKit
 
-class TaskListViewController: UIViewController {
+class TaskListViewController: UIViewController, AddTaskViewDelegate {
     
     var addTaskAction: ((TaskProtocol) -> Void)?
-
-    private let tasksListView: TasksListView
-    private var viewModel: TasksListViewViewModel
-    
-    init(viewModel: TasksListViewViewModel) {
-        self.viewModel = TasksListViewViewModel()
-        self.tasksListView = TasksListView(frame: .zero, viewModel: viewModel)
-        super.init(nibName: nil, bundle: nil)
-    }
+        private let tasksListView: TasksListView
+        private var viewModel: TasksListViewViewModel
+        
+        init(viewModel: TasksListViewViewModel) {
+            self.viewModel = viewModel
+            self.tasksListView = TasksListView(frame: .zero, viewModel: viewModel)
+            super.init(nibName: nil, bundle: nil)
+            tasksListView.setAddTaskViewDelegate(self)
+        }
     
     required init?(coder: NSCoder) {
         fatalError("Unsuported")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -44,18 +44,25 @@ class TaskListViewController: UIViewController {
     
     @objc private func addButtonTapped() {
         if tasksListView.addTaskViewHeightConstraint.constant == 0 {
-                tasksListView.addTaskViewHeightConstraint.constant = 125
-            } else {
-                tasksListView.addTaskViewHeightConstraint.constant = 0
-            }
-            
-            // Обновите расположение ограничений после изменения
-            UIView.animate(withDuration: 0.4) {
-                self.view.layoutIfNeeded()
-            }
-     
+            tasksListView.addTaskViewHeightConstraint.constant = 125
+        } else {
+            tasksListView.addTaskViewHeightConstraint.constant = 0
+        }
+        
+        // Обновите расположение ограничений после изменения
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
+        
     }
     
-
+    func didTapSaveButton(with task: String) {
+        let newTask = Task(title: task, status: .planned)
+        print(newTask)
+        viewModel.addTaskAction?(newTask)
+        viewModel.tasks[.planned]?.append(newTask)
+    }
+    
+    
 }
 

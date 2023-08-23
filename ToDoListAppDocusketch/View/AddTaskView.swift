@@ -7,10 +7,14 @@
 
 import UIKit
 
-import UIKit
+protocol AddTaskViewDelegate: AnyObject {
+    func didTapSaveButton(with task: String)
+}
 
 class AddTaskView: UIView {
-
+    
+    var delegate: AddTaskViewDelegate?
+    
     private var bottomElementsConstraint: NSLayoutConstraint!
     
     private let taskTextField: UITextField = {
@@ -57,7 +61,7 @@ class AddTaskView: UIView {
         bottomElementsConstraint = addButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         
         NSLayoutConstraint.activate([
-//            taskTextField.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            //            taskTextField.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             taskTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             taskTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
@@ -81,6 +85,8 @@ class AddTaskView: UIView {
     }
     
     @objc private func addButtonTapped() {
-        print("Add Task button tapped")
+        let title = taskTextField.text ?? ""
+        delegate?.didTapSaveButton(with: title)
+        taskTextField.text = ""
     }
 }
