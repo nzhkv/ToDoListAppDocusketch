@@ -9,6 +9,10 @@ import UIKit
 
 class TasksListView: UIView {
     
+    private var addTaskView: AddTaskView!
+    
+    var addTaskViewHeightConstraint: NSLayoutConstraint!
+    
     private let viewModel: TasksListViewViewModel
     
     private let tableView: UITableView = {
@@ -25,23 +29,22 @@ class TasksListView: UIView {
         let label = UILabel()
         label.text = "TO DO"
         label.textColor = UIColor.label
-        
         let headerFont = UIFont.systemFont(ofSize: 30, weight: .heavy)
         label.font = headerFont
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let addButton: UIButton = {
-        let button = UIButton(type: .system)
-            button.backgroundColor = .blue
-            button.tintColor = .white
-            button.layer.cornerRadius = 25 // Половина высоты/ширины кнопки для создания круглой формы
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .bold)
-            button.setTitle("+", for: .normal)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            return button
+        let button = UIButton()
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 30
+        let image = UIImage(systemName: "plus",
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 32, weight: .medium))
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 1
+        return button
     }()
     
     init(frame: CGRect, viewModel: TasksListViewViewModel) {
@@ -62,20 +65,31 @@ class TasksListView: UIView {
         tableView.dataSource = viewModel
     }
     
-    private func addConstraints() {
+    func addConstraints() {
+        addTaskView = AddTaskView()
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addTaskView.translatesAutoresizingMaskIntoConstraints = false
+        addSubviews(addTaskView)
+        addTaskViewHeightConstraint = addTaskView.heightAnchor.constraint(equalToConstant: 0)
+            addTaskViewHeightConstraint.isActive = true
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             headerLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             headerLabel.rightAnchor.constraint(equalTo: rightAnchor),
             
-            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            addTaskView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor),
+            addTaskView.leftAnchor.constraint(equalTo: leftAnchor, constant:  16),
+            addTaskView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            
+            tableView.topAnchor.constraint(equalTo: addTaskView.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            addButton.widthAnchor.constraint(equalToConstant: 50),
-            addButton.heightAnchor.constraint(equalToConstant: 50),
+            addButton.widthAnchor.constraint(equalToConstant: 60),
+            addButton.heightAnchor.constraint(equalToConstant: 60),
             addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             addButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])

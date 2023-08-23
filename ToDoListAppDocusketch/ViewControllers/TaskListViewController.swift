@@ -8,6 +8,8 @@
 import UIKit
 
 class TaskListViewController: UIViewController {
+    
+    var addTaskAction: ((TaskProtocol) -> Void)?
 
     private let tasksListView: TasksListView
     private var viewModel: TasksListViewViewModel
@@ -36,7 +38,24 @@ class TaskListViewController: UIViewController {
             tasksListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             tasksListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        tasksListView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
+    
+    @objc private func addButtonTapped() {
+        if tasksListView.addTaskViewHeightConstraint.constant == 0 {
+                tasksListView.addTaskViewHeightConstraint.constant = 125
+            } else {
+                tasksListView.addTaskViewHeightConstraint.constant = 0
+            }
+            
+            // Обновите расположение ограничений после изменения
+            UIView.animate(withDuration: 0.4) {
+                self.view.layoutIfNeeded()
+            }
+     
+    }
+    
 
 }
 

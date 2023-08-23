@@ -23,12 +23,6 @@ final class TasksListViewViewModel: NSObject {
     
     var sectionStatusPosition: [TaskStatus] = [.planned, .completed]
     
-    var addTaskAction: ((String, TaskStatus) -> Void)?
-    
-    func addTaskButtonTapped() {
-           addTaskAction?("Default Task Title", .completed)
-       }
-    
     func setTasks(_ tasksCollection: [TaskProtocol]) {
         sectionStatusPosition.forEach { taskType in
             tasks[taskType] = []
@@ -87,6 +81,7 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
         tasks[sectionStatus]?.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
+
     
 //    изменение статуса задачи
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
