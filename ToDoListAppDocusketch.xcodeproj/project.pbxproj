@@ -17,6 +17,7 @@
 		2E9CD6AF2A96720F00666746 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9CD6AE2A96720F00666746 /* Task.swift */; };
 		2E9CD6B12A96722F00666746 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9CD6B02A96722F00666746 /* TaskStorage.swift */; };
 		2E9CD6B42A96730700666746 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9CD6B32A96730700666746 /* Extensions.swift */; };
+		2E9CD6B62A96770300666746 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9CD6B52A96770300666746 /* AddTaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		2E9CD6AE2A96720F00666746 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2E9CD6B02A96722F00666746 /* TaskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorage.swift; sourceTree = "<group>"; };
 		2E9CD6B32A96730700666746 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2E9CD6B52A96770300666746 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				2E9CD6AA2A96718D00666746 /* TasksListView.swift */,
+				2E9CD6B52A96770300666746 /* AddTaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				2E9CD6B12A96722F00666746 /* TaskStorage.swift in Sources */,
 				2E9CD6942A966FAB00666746 /* ViewController.swift in Sources */,
 				2E9CD6902A966FAB00666746 /* AppDelegate.swift in Sources */,
+				2E9CD6B62A96770300666746 /* AddTaskView.swift in Sources */,
 				2E9CD6B42A96730700666746 /* Extensions.swift in Sources */,
 				2E9CD6AD2A9671EE00666746 /* TasksListViewViewModel.swift in Sources */,
 				2E9CD6922A966FAB00666746 /* SceneDelegate.swift in Sources */,

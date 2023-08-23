@@ -88,9 +88,6 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
-    
-    
-    
 //    изменение статуса задачи
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskType = sectionStatusPosition[indexPath.section]
