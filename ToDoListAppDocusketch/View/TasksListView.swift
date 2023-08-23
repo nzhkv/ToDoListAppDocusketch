@@ -98,5 +98,9 @@ class TasksListView: UIView {
     func setAddTaskViewDelegate(_ delegate: AddTaskViewDelegate) {
             addTaskView.delegate = delegate
         }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
 }
 

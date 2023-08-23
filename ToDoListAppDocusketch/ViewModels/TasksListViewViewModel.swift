@@ -35,6 +35,12 @@ final class TasksListViewViewModel: NSObject {
         }
     }
     
+    func addTask(_ task: TaskProtocol) {
+        tasks[task.status]?.insert(task, at: 0)
+    }
+    
+    
+    
 }
 
 extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {

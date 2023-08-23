@@ -60,7 +60,9 @@ class TaskListViewController: UIViewController, AddTaskViewDelegate {
         let newTask = Task(title: task, status: .planned)
         print(newTask)
         viewModel.addTaskAction?(newTask)
-        viewModel.tasks[.planned]?.append(newTask)
+        viewModel.addTask(newTask)
+        tasksListView.reloadData()
+        
     }
     
     
