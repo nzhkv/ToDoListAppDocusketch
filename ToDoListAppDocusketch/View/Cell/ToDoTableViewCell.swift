@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// кастомная ячейка To Do
 class ToDoTableViewCell: UITableViewCell {
     
     static let cellIdentifier = "ToDoCell"

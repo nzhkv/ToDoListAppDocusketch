@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// ViewModel кастомной ячейки done
 final class DoneTaskTableViewCellViewModel {
     private let taskStatuslabel: String = "\u{25C9}"
     public let taskTextLabel: String

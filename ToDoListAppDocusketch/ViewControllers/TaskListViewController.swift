@@ -9,16 +9,15 @@ import UIKit
 
 class TaskListViewController: UIViewController, AddTaskViewDelegate {
     
-    var addTaskAction: ((TaskProtocol) -> Void)?
-        private let tasksListView: TasksListView
-        private var viewModel: TasksListViewViewModel
-        
-        init(viewModel: TasksListViewViewModel) {
-            self.viewModel = viewModel
-            self.tasksListView = TasksListView(frame: .zero, viewModel: viewModel)
-            super.init(nibName: nil, bundle: nil)
-            tasksListView.setAddTaskViewDelegate(self)
-        }
+    private let tasksListView: TasksListView
+    private var viewModel: TasksListViewViewModel
+    
+    init(viewModel: TasksListViewViewModel) {
+        self.viewModel = viewModel
+        self.tasksListView = TasksListView(frame: .zero, viewModel: viewModel)
+        super.init(nibName: nil, bundle: nil)
+        tasksListView.setAddTaskViewDelegate(self)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("Unsuported")
@@ -49,19 +48,17 @@ class TaskListViewController: UIViewController, AddTaskViewDelegate {
             tasksListView.addTaskViewHeightConstraint.constant = 0
         }
         
-        // Обновите расположение ограничений после изменения
         UIView.animate(withDuration: 0.4) {
             self.view.layoutIfNeeded()
         }
-        
     }
     
+    /// реализация делегата по сохранению новой задачи
     func didTapSaveButton(with task: String) {
         let newTask = Task(title: task, status: .planned)
         viewModel.addTaskAction?(newTask)
         viewModel.addTask(newTask)
         tasksListView.reloadData()
-        
     }
     
 }

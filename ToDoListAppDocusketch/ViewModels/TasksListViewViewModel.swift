@@ -9,12 +9,14 @@ import UIKit
 
 final class TasksListViewViewModel: NSObject {
     
+    /// создаем хранение UserDefaults
     var tasksStorage: TaskStorageProtocol = TaskStorage()
-    
     
     var addTaskAction: ((TaskProtocol) -> Void)?
     
+    /// Источник всех данных для таблицы
     var tasks: [TaskStatus: [TaskProtocol]] = [:] {
+        /// Обновляем хранилище при изменении данных
         didSet {
             var savingArray: [TaskProtocol] = []
             tasks.forEach {key, value in
@@ -27,6 +29,7 @@ final class TasksListViewViewModel: NSObject {
     
     var sectionStatusPosition: [TaskStatus] = [.planned, .completed]
     
+    /// Загружаем и сортируем данные
     func setTasks(_ tasksCollection: [TaskProtocol]) {
         sectionStatusPosition.forEach { taskType in
             tasks[taskType] = []
@@ -37,14 +40,13 @@ final class TasksListViewViewModel: NSObject {
         }
     }
     
+    /// Добавление новой задачи
     func addTask(_ task: TaskProtocol) {
         tasks[task.status]?.insert(task, at: 0)
     }
-    
-    
-    
 }
 
+/// Методы tableView
 extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,7 +75,6 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
                    fatalError("Unsupported cell")
                }
                
-               // Обратите внимание на toDoTasks вместо tasks[.completed]
                guard let task = tasks[.planned]?[indexPath.row] else {
                    fatalError("Task not found")
                }
@@ -88,7 +89,6 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
                    fatalError("Unsupported cell")
                }
                
-               // Используйте tasks[.completed] для раздела "Completed"
                guard let task = tasks[.completed]?[indexPath.row] else {
                    fatalError("Task not found")
                }
@@ -107,6 +107,7 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    /// Удаление свайпом
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
             self?.deleteTask(at: indexPath, tableView: tableView)
@@ -124,7 +125,7 @@ extension TasksListViewViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     
-//    изменение статуса задачи
+//    изменение статуса задачи тапом по ячейке
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskType = sectionStatusPosition[indexPath.section]
         

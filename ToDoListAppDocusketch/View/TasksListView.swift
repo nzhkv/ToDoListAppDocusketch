@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Rонфигурирование корневого view
 class TasksListView: UIView {
     
     private var addTaskView: AddTaskView!
@@ -99,6 +100,7 @@ class TasksListView: UIView {
             addTaskView.delegate = delegate
         }
     
+    /// Обновление таблицы после добавления task
     func reloadData() {
         tableView.reloadData()
     }

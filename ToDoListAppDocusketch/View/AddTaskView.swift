@@ -7,10 +7,12 @@
 
 import UIKit
 
+/// протокол делегата на сохоанение новой задачи
 protocol AddTaskViewDelegate: AnyObject {
     func didTapSaveButton(with task: String)
 }
 
+/// View с кнопкой и textfield для добавления новой задачи
 class AddTaskView: UIView {
     
     var delegate: AddTaskViewDelegate?

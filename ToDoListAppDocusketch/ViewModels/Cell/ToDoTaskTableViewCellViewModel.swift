@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// ViewModel кастомной ячейки ToDo
 final class ToDoTaskTableViewCellViewModel {
     private let taskStatuslabel: String = "\u{25C9}"
     public let taskTextLabel: String

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// кастомная ячейка completed
 class DoneTaskTableViewCell: UITableViewCell {
 
     static let cellIdentifier = "DoneCell"

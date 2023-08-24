@@ -15,6 +15,8 @@ protocol TaskStorageProtocol {
 }
 
 class TaskStorage: TaskStorageProtocol {
+   
+    /// Режим работы на тестовых данных или из хранилища
     let testData = true
 //    let testData = false
 
@@ -26,6 +28,7 @@ class TaskStorage: TaskStorageProtocol {
         case status
     }
     
+    /// загрузка данных (тестовых/из хранилища)
     func loadTasks() -> [TaskProtocol] {
         if testData {
             let testTasks: [TaskProtocol] = [
@@ -54,6 +57,7 @@ class TaskStorage: TaskStorageProtocol {
         }
     }
     
+    /// Сохранение в хранилище
     func saveTasks(_ tasks: [TaskProtocol]) {
         var arrayForStorage: [[String:String]] = []
         tasks.forEach { task in
